@@ -9,7 +9,7 @@
     <hr class="my-2">
     <div class="row">
         <div class="col-md-12 mt-3">
-            <table id="dtable" class="table table-hover">
+            <table id="myTable" class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -25,7 +25,8 @@
                       <td scope="row">{{ $memb->id }}</td>
                       <td>{{ $memb->name }}</td>
                       <td>{{ $memb->email }}</td>
-                      <td>{{ $memb->school}}</td>
+                      <td>{{ $memb->school->pluck('name')}}</td>
+                      <td>{{ $memb->school->pluck('country')}}</td>
                     </tr>
                   @endforeach
                 </tbody>
@@ -34,6 +35,8 @@
     </div>
 </div>
 <script>
-    new DataTable('#example');
+    $(document).ready( function () {
+        $('#myTable').DataTable();
+    } );
 </script>
 @endsection
