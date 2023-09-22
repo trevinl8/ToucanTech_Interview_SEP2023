@@ -26,16 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $schools = School::all();
         $schoolcount = DB::table('member_school')
                     ->join('schools', 'schools.id', '=', 'member_school.school_id')
                     ->join('members', 'members.id', '=', 'member_school.member_id')
-                    ->select('schools.*', 'members.*')
-                    ->where('member_school.member_id', '=', auth()->user()->id)
+                    ->select('schools.name', 'members.name')
+                    ->where('member_school.member_id', '=','members.id')
                     ->get();
                     //->count();
 
         //dd($schoolcount);
-        return view('home')->withSchoolcount($schoolcount);
+        return view('home')->withSchoolcount($schoolcount)->withSchools($schools);
     }
 
 }
